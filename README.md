@@ -11,7 +11,7 @@ JaiLang is a Jai plugin for the text editor [Sublime Text 2](http://www.sublimet
 
 - Basic Autocomplete
 - Snippets
-- 
+
 ## Copyright, License & Contributors
 
 JaiLang is release under the MIT license. See [LICENSE](LICENSE).
