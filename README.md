@@ -1,4 +1,4 @@
-# Sublime Text Page for Jai
+# JaiSublime
 
 JaiSublime is a Jai plugin for the text editor [Sublime Text 2](http://www.sublimetext.com/3) providing syntax highlighting. Sublime Text 3 has only been tested. This may work in Sublime Text 2.
 
