@@ -1,6 +1,6 @@
-# JaiSublime
+# JaiLang
 
-JaiSublime is a Jai plugin for the text editor [Sublime Text 2](http://www.sublimetext.com/3) providing syntax highlighting. Sublime Text 3 has only been tested. This may work in Sublime Text 2.
+JaiLang is a Jai plugin for the text editor [Sublime Text 2](http://www.sublimetext.com/3) providing syntax highlighting. Sublime Text 3 has only been tested. This may work in Sublime Text 2.
 
 ## Features
 
@@ -14,6 +14,6 @@ JaiSublime is a Jai plugin for the text editor [Sublime Text 2](http://www.subli
 - 
 ## Copyright, License & Contributors
 
-JaiSublime is release under the MIT license. See [LICENSE](LICENSE).
+JaiLang is release under the MIT license. See [LICENSE](LICENSE).
 
-JaiSublime is the copyrighted work of The JaiSublime Authors i.e me (https://github.com/gingerBill/JaiSublime) and all contributors.
+JaiLang is the copyrighted work of The JaiLang Authors i.e me (https://github.com/gingerBill/JaiLang) and all contributors.
