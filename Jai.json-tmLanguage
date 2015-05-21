@@ -1,0 +1,199 @@
+// [PackageDev] target_format: plist
+{
+	"name": "jai",
+	"scopeName": "source.jai",
+	"fileTypes": ["jai"],
+	"patterns": [
+		{ "include": "#translation_unit" }
+
+	// Other
+		// {
+		// 	// // FULL_CAPS Types such as enums and #foreign macro defines
+		// 	// "name": "entity.name.function.enum.source.jai",
+		// 	// "match": "\\b[_]*([A-Z][A-Z0-9]*([_][A-Z0-9]*)*)\\b"
+		// }
+
+	],
+	"repository": {
+		"translation_unit": {
+			"patterns": [
+				{ "include": "#function"},
+				{ "include": "#struct" },
+				{ "include": "#enum" },
+				{ "include": "#new" },
+				{ "include": "#cast" },
+				{ "include": "#comment" },
+				{ "include": "#keywords" },
+				{ "include": "#constants" },
+				{ "include": "#storage" }
+			]
+		},
+
+		"function": {
+			"patterns": [
+				{ "include": "#function_declartion"},
+				{ "include": "#function_use"}
+			]
+		},
+
+		"function_declartion": {
+			"match": "\\b([a-zA-Z_]\\w*)\\b\\s*::\\s*(inline)?\\s*[\\(]",
+			"captures": {
+				"1": { "name": "meta.function.source.jai entity.name.function.source.jai" },
+				"2": { "name": "storage.modifier.source.jai" }
+			}
+		},
+
+		"function_use": {
+			"match": "(?!(while|for|if|else|return|continue|then|xx|defer|cast|delete|size_of|remove|using|AOS|SOA|inline)\\s+)([a-zA-Z_]\\w*)\\s*[\\(]",
+			"captures": {
+			    "2": { "name": "support.function.source.jai" }
+			}
+		},
+
+		"struct": {
+			"match": "(\\w+)\\s*::\\s*(struct)\\b",
+			"captures": {
+				"1": { "name": "entity.name.type.struct.source.jai" },
+				"2": { "name": "storage.type.struct.source.jai" }
+			}
+		},
+		"enum": {
+			"match": "(\\w+)\\s*::\\s*(enum)\\b",
+			"captures": {
+				"1": { "name": "entity.name.type.enum.source.jai" },
+				"2": { "name": "storage.type.enum.source.jai" }
+			}
+		},
+
+
+		"new": {
+			"match": "\\b(new)\\s+(\\w+)",
+			"captures": {
+			    "1": { "name": "keyword.operator.new.source.jai" },
+			    "2": { "name": "storage.type.source.jai" }
+			}
+		},
+		"cast": {
+			"match": "\\b(cast)\\s*\\((.+?)\\)",
+			"captures": {
+			    "1": { "name": "keyword.operator.source.jai" },
+			    "2": { "name": "storage.type.source.jai" }
+			}
+		},
+
+
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.other.directive.source.jai",
+					"match": "#\\w*"
+				},
+				{
+					"name": "keyword.other.tag.source.jai",
+					"match": "@\\S+"
+				},
+				{
+					"name": "keyword.control.source.jai",
+					"match": "\\b(?:if|then|else|for|while|continue|return)\\b"
+				},
+				{
+					"name": "keyword.operator.source.jai",
+					"match": "\\b(?:delete|xx|size_of|remove|new)\\b"
+				},
+				{
+					"name": "keyword.other.source.jai",
+					"match": "\\b(?:defer|using)\\b"
+				},
+				{
+					"name": "keyword.other.source.jai",
+					"match": "---"
+				},
+				{
+					"name": "keyword.other.source.jai",
+					"match": "\\b(it|it_index)\\b"
+				}
+			]
+		},
+
+		"comment": {
+			"patterns": [
+				{ "include": "#line-comment" },
+				{ "include": "#block-comment" }
+
+			]
+		},
+		"block-comment": {
+			"name": "comment.block.source.jai",
+			"begin": "/\\*",
+			"end": "\\*/",
+			"patterns": [
+				{ "include": "#block-comment" }
+			]
+		},
+		"line-comment": {
+			"name": "comment.line.source.jai",
+			"begin": "//",
+			"end": "$"
+		},
+
+		"constants": {
+			"patterns": [
+				{
+					"name": "constant.language.source.jai",
+					"match": "\\b(true|false|null)\\b"
+				},
+				{
+					"name": "constant.numeric.hexadecimal.source.jai",
+					"match": "(?<!\\w)0[xX][[:xdigit:]]+"
+				},
+				{
+					"name": "constant.numeric.decimal.source.jai",
+					"match": "(?<!\\w)\\d+(?:\\.\\d+)?"
+				}
+				// string constants // TODO
+				// {
+				// 	"name": "constant.character.escape.source.jai",
+				// 	"match": "\\\\(\\\\|[abefnprtv'\"?]|[0-3]\\d{,2}|[4-7]\\d?|x[a-fA-F0-9]{,2}|u[a-fA-F0-9]{,4}|U[a-fA-F0-9]{,8})"
+				// },
+				// {
+				// 	"name": "invalid.illegal.unknown-escape.c",
+				// 	"match": "\\\\."
+				// }
+			]
+		},
+
+		"storage": {
+			"patterns": [
+
+				{
+					"name": "storage.modifier.source.jai",
+					"match": "\\b(?:SOA|AOS|inline)\\b"
+				},
+
+				{
+					"name": "storage.type.source.jai",
+					"match": "\\b(?:void|string|bool|float|float32|float64|int|u8|u16|u32|u64|s8|s16|s32|s64)\\b"
+				},
+
+				{
+					"name": "storage.type.source.jai",
+					"match": "\\b([A-Z][a-z0-9]+)([_][A-Z][a-z0-9]*)*\\b"
+				},
+
+				// strings
+				{
+					"name": "string.quoted.double.source.jai",
+					"match": "\".*?\""
+				},
+
+				// Parameterized Types
+				{
+					"name": "storage.type.source.jai",
+					"match": "\\$\\b\\w+\\b"
+				}
+			]
+		}
+	},
+	"uuid": "728cfc9a-25ea-429c-a559-daf7c5d46351"
+}
