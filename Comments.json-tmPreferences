@@ -1,0 +1,22 @@
+// [PackageDev] target_format: plist
+{
+	"name": "Comments",
+	"scope": "source.jai",
+	"settings": {
+		"shellVariables": [
+			{
+				"name": "TM_COMMENT_START",
+				"value": "// "
+			},
+			{
+				"name": "TM_COMMENT_START_2",
+				"value": "/*"
+			},
+			{
+				"name": "TM_COMMENT_END_2",
+				"value": "*/"
+			}
+		]
+	},
+	"uuid": "84900ddd-58fa-44b4-af68-4878046e79e0"
+}
