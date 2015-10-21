@@ -17,16 +17,23 @@
 	"repository": {
 		"translation_unit": {
 			"patterns": [
+				{ "include": "#cast" },
 				{ "include": "#function"},
 				{ "include": "#struct" },
 				{ "include": "#enum" },
-				{ "include": "#new" },
-				{ "include": "#cast" },
 				{ "include": "#comment" },
 				{ "include": "#keywords" },
 				{ "include": "#constants" },
 				{ "include": "#storage" }
 			]
+		},
+
+		"cast": {
+			"match": "\\b(cast)\\s*\\((?:\\*|\\^)*(.+?)\\)",
+			"captures": {
+				"1": { "name": "keyword.operator.source.jai" },
+				"2": { "name": "storage.type.source.jai" }
+			}
 		},
 
 		"function": {
@@ -37,7 +44,7 @@
 		},
 
 		"function_declartion": {
-			"match": "\\b([a-zA-Z_]\\w*)\\b\\s*::\\s*(inline)?\\s*[\\(]",
+			"match": "\\b([a-zA-Z_]\\w*)\\b\\s*::\\s*(inline|no_inline)?\\s*[\\(]",
 			"captures": {
 				"1": { "name": "meta.function.source.jai entity.name.function.source.jai" },
 				"2": { "name": "storage.modifier.source.jai" }
@@ -45,7 +52,7 @@
 		},
 
 		"function_use": {
-			"match": "(?!(while|for|if|else|return|continue|then|xx|defer|cast|delete|size_of|remove|using|AOS|SOA|inline)\\s+)([a-zA-Z_]\\w*)\\s*[\\(]",
+			"match": "(?!(while|for|if|else|return|continue|then|xx|defer|cast|size_of|remove|using|AOS|SOA|inline|no_inline)\\s+)([a-zA-Z_]\\w*)\\s*[\\(]",
 			"captures": {
 			    "2": { "name": "support.function.source.jai" }
 			}
@@ -58,6 +65,7 @@
 				"2": { "name": "storage.type.struct.source.jai" }
 			}
 		},
+
 		"enum": {
 			"match": "(\\w+)\\s*::\\s*(enum)\\b",
 			"captures": {
@@ -65,23 +73,6 @@
 				"2": { "name": "storage.type.enum.source.jai" }
 			}
 		},
-
-
-		"new": {
-			"match": "\\b(new)\\s+(\\w+)",
-			"captures": {
-			    "1": { "name": "keyword.operator.new.source.jai" },
-			    "2": { "name": "storage.type.source.jai" }
-			}
-		},
-		"cast": {
-			"match": "\\b(cast)\\s*\\((.+?)\\)",
-			"captures": {
-			    "1": { "name": "keyword.operator.source.jai" },
-			    "2": { "name": "storage.type.source.jai" }
-			}
-		},
-
 
 		"keywords": {
 			"patterns": [
@@ -95,11 +86,11 @@
 				},
 				{
 					"name": "keyword.control.source.jai",
-					"match": "\\b(?:if|then|else|for|while|continue|return)\\b"
+					"match": "\\b(?:if|then|else|for|while|continue|break|return)\\b"
 				},
 				{
 					"name": "keyword.operator.source.jai",
-					"match": "\\b(?:delete|xx|size_of|remove|new)\\b"
+					"match": "\\b(?:xx|size_of|remove|push_context|new|delete)\\b"
 				},
 				{
 					"name": "keyword.other.source.jai",
@@ -111,7 +102,7 @@
 				},
 				{
 					"name": "keyword.other.source.jai",
-					"match": "\\b(it|it_index)\\b"
+					"match": "\\b(it|it_index|context)\\b"
 				}
 			]
 		},
@@ -151,15 +142,6 @@
 					"name": "constant.numeric.decimal.source.jai",
 					"match": "(?<!\\w)\\d+(?:\\.\\d+)?"
 				}
-				// string constants // TODO
-				// {
-				// 	"name": "constant.character.escape.source.jai",
-				// 	"match": "\\\\(\\\\|[abefnprtv'\"?]|[0-3]\\d{,2}|[4-7]\\d?|x[a-fA-F0-9]{,2}|u[a-fA-F0-9]{,4}|U[a-fA-F0-9]{,8})"
-				// },
-				// {
-				// 	"name": "invalid.illegal.unknown-escape.c",
-				// 	"match": "\\\\."
-				// }
 			]
 		},
 
@@ -168,17 +150,22 @@
 
 				{
 					"name": "storage.modifier.source.jai",
-					"match": "\\b(?:SOA|AOS|inline)\\b"
+					"match": "\\b(?:SOA|AOS|inline|no_inline)\\b"
 				},
 
 				{
 					"name": "storage.type.source.jai",
-					"match": "\\b(?:void|string|bool|float|float32|float64|int|u8|u16|u32|u64|s8|s16|s32|s64)\\b"
+					"match": "\\b(?:void|string|bool|float|float32|float64|int|u8|u16|u32|u64|s8|s16|s32|s64|Any)\\b"
 				},
 
 				{
 					"name": "storage.type.source.jai",
 					"match": "\\b([A-Z][a-z0-9]+)([_][A-Z][a-z0-9]*)*\\b"
+				},
+
+				{
+					"name": "storage.constant.jai",
+					"match": "\\b[A-Z_](?![a-z])[A-Z_0-9]+\\b"
 				},
 
 				// strings

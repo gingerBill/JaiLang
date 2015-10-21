@@ -5,7 +5,7 @@ JaiLang is a Jai plugin for the text editor [Sublime Text](http://www.sublimetex
 ## Features
 
 - Comment Definitions
-- Syntax Highlighting (Correct as of 2015-05-21)
+- Syntax Highlighting (Correct as of 2015-10-21)
 
 ## Future Features
 

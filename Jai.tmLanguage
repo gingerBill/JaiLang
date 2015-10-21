@@ -7,7 +7,7 @@
 		<string>jai</string>
 	</array>
 	<key>name</key>
-	<string>Jai</string>
+	<string>jai</string>
 	<key>patterns</key>
 	<array>
 		<dict>
@@ -49,7 +49,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>\b(cast)\s*\((.+?)\)</string>
+			<string>\b(cast)\s*\((?:\*|\^)*(.+?)\)</string>
 		</dict>
 		<key>comment</key>
 		<dict>
@@ -137,7 +137,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>\b([a-zA-Z_]\w*)\b\s*::\s*(inline)?\s*[\(]</string>
+			<string>\b([a-zA-Z_]\w*)\b\s*::\s*(inline|no_inline)?\s*[\(]</string>
 		</dict>
 		<key>function_use</key>
 		<dict>
@@ -150,7 +150,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>(?!(while|for|if|else|return|continue|then|xx|defer|cast|delete|size_of|remove|using|AOS|SOA|inline)\s+)([a-zA-Z_]\w*)\s*[\(]</string>
+			<string>(?!(while|for|if|else|return|continue|then|xx|defer|cast|size_of|remove|using|AOS|SOA|inline|no_inline)\s+)([a-zA-Z_]\w*)\s*[\(]</string>
 		</dict>
 		<key>keywords</key>
 		<dict>
@@ -170,13 +170,13 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\b(?:if|then|else|for|while|continue|return)\b</string>
+					<string>\b(?:if|then|else|for|while|continue|break|return)\b</string>
 					<key>name</key>
 					<string>keyword.control.source.jai</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\b(?:delete|xx|size_of|remove|new)\b</string>
+					<string>\b(?:xx|size_of|remove|push_context|new|delete)\b</string>
 					<key>name</key>
 					<string>keyword.operator.source.jai</string>
 				</dict>
@@ -194,7 +194,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\b(it|it_index)\b</string>
+					<string>\b(it|it_index|context)\b</string>
 					<key>name</key>
 					<string>keyword.other.source.jai</string>
 				</dict>
@@ -209,37 +209,19 @@
 			<key>name</key>
 			<string>comment.line.source.jai</string>
 		</dict>
-		<key>new</key>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.operator.new.source.jai</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>storage.type.source.jai</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>\b(new)\s+(\w+)</string>
-		</dict>
 		<key>storage</key>
 		<dict>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>match</key>
-					<string>\b(?:SOA|AOS|inline)\b</string>
+					<string>\b(?:SOA|AOS|inline|no_inline)\b</string>
 					<key>name</key>
 					<string>storage.modifier.source.jai</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\b(?:void|string|bool|float|float32|float64|int|u8|u16|u32|u64|s8|s16|s32|s64)\b</string>
+					<string>\b(?:void|string|bool|float|float32|float64|int|u8|u16|u32|u64|s8|s16|s32|s64|Any)\b</string>
 					<key>name</key>
 					<string>storage.type.source.jai</string>
 				</dict>
@@ -248,6 +230,12 @@
 					<string>\b([A-Z][a-z0-9]+)([_][A-Z][a-z0-9]*)*\b</string>
 					<key>name</key>
 					<string>storage.type.source.jai</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\b[A-Z_](?![a-z])[A-Z_0-9]+\b</string>
+					<key>name</key>
+					<string>storage.constant.jai</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -287,6 +275,10 @@
 			<array>
 				<dict>
 					<key>include</key>
+					<string>#cast</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>#function</string>
 				</dict>
 				<dict>
@@ -296,14 +288,6 @@
 				<dict>
 					<key>include</key>
 					<string>#enum</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#new</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#cast</string>
 				</dict>
 				<dict>
 					<key>include</key>
