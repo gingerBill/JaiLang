@@ -38,12 +38,12 @@
 
 		"function": {
 			"patterns": [
-				{ "include": "#function_declartion"},
+				{ "include": "#function_declaration"},
 				{ "include": "#function_use"}
 			]
 		},
 
-		"function_declartion": {
+		"function_declaration": {
 			"match": "\\b([a-zA-Z_]\\w*)\\b\\s*::\\s*(inline|no_inline)?\\s*[\\(]",
 			"captures": {
 				"1": { "name": "meta.function.source.jai entity.name.function.source.jai" },
